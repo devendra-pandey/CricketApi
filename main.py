@@ -5,14 +5,14 @@ import json
 
 app = Flask(__name__)
 
-# @app.route('/' ,methods=['GET'])
-# def cricket_info():
-#     result = []
-c = Cricbuzz()
-matches = c.matches()
-print (json.dumps(matches,indent=4))
-    # result.append(matches)
-    # return jsonify({'matches': result})
+@app.route('/' ,methods=['GET'])
+def cricket_info():
+    result = []
+    c = Cricbuzz()
+    matches = c.matches()
+    print (json.dumps(matches,indent=4))
+    result.append(matches)
+    return jsonify({'matches': result})
 
 @app.route('/info/<int:mid>' ,methods=['GET'])
 def match_info(mid):
