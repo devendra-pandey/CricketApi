@@ -2,7 +2,6 @@ from flask import Flask , jsonify
 from pycricbuzz import Cricbuzz
 import json
 
-
 app = Flask(__name__)
 
 @app.route('/' ,methods=['GET'])
@@ -32,6 +31,16 @@ def live_score(mid):
     print(json.dumps(lscore, indent=4, sort_keys=True))
     match_live_score.append(lscore)
     return jsonify({'Live score ': match_live_score})
+
+@app.route('/player/<mid>',methods=['POST'])
+def players(mid):
+    players_info = []
+    c = Cricbuzz()
+    cplayers = c.players_mapping(mid)
+    players_info.append(cplayers)
+    return jsonify({'player': players_info})
+
+
 
 @app.route('/commentory/<mid>',methods=['POST'])
 def commentary(mid):
